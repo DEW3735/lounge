@@ -103,7 +103,7 @@ impl Stamp {
         let zone = if self.value.ends_with('Z') {
             Tz::UTC
         } else {
-            self.zone.as_deref().map(str::parse).transpose().ok()?.unwrap_or(zone)
+            self.zone.as_deref().map(str::parse::<chrono_tz::Tz>).transpose().ok()?.map(Tz::from).unwrap_or(zone)
         };
         date.and_local_timezone(zone).earliest()
     }
@@ -151,7 +151,7 @@ fn read_feed(feed: &str) -> Result<(Tz, Vec<Event>), String> {
                 }
                 depth = depth.saturating_sub(1);
             }
-            "X-WR-TIMEZONE" if depth == 1 => zone = value.parse().unwrap_or(Tz::UTC),
+            "X-WR-TIMEZONE" if depth == 1 => zone = value.parse::<chrono_tz::Tz>().map(Tz::from).unwrap_or(Tz::UTC),
             name if event_depth == Some(depth) => match name {
                 "UID" => event.uid = value.into(),
                 "SUMMARY" => event.title = unescape(value),
@@ -262,7 +262,10 @@ fn upcoming(feed: &str, now_ms: i64, offset_minutes: i32) -> Result<Vec<Item>, S
     tiles.sort_by(|(a, first), (b, second)| a.cmp(b).then_with(|| first.id.cmp(&second.id)));
     let mut seen = HashSet::new();
     Ok(tiles.into_iter().map(|(_, item)| item)
-        .filter(|item| seen.insert(item.id.clone())).take(MAX_ITEMS).collect())
+        .filter(|item| seen.insert(item.id.clone())).take(MAX_ITEMS).enumerate().map(|(index, mut item)| {
+                item.weight = -i32::try_from(index).expect("row size is bounded");
+                item
+            }).collect())
 }
 
 #[cfg(test)]

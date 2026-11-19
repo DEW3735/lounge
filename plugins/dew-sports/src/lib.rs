@@ -81,7 +81,10 @@ impl sdk::Plugin for Sports {
         games.sort_by(|a, b| a.0.cmp(&b.0).then_with(|| a.1.cmp(&b.1)).then_with(|| a.2.id.cmp(&b.2.id)));
         let mut seen = std::collections::HashSet::new();
         Ok(games.into_iter().map(|(_, _, item)| item)
-            .filter(|item| seen.insert(item.id.clone())).take(24).collect())
+            .filter(|item| seen.insert(item.id.clone())).take(24).enumerate().map(|(index, mut item)| {
+                item.weight = -i32::try_from(index).expect("row size is bounded");
+                item
+            }).collect())
     }
 }
 

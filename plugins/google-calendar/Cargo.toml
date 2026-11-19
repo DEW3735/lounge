@@ -10,4 +10,5 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 lounge-plugin-sdk.workspace = true
 chrono = { version = "0.4", default-features = false, features = ["std"] }
+chrono-tz = "0.10"
 rrule = "0.14"
