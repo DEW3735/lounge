@@ -14,7 +14,7 @@ android {
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "tv.lounge.launcher"
+        applicationId = "com.wendt.dewlounge"
         minSdk = 28
         targetSdk = 37
         versionCode = 19
