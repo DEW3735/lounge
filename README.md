@@ -233,6 +233,8 @@ plugin is off, the home offers to set it up until you do or dismiss the offer.
 | Internet Archive | Free films, cartoons and television from archive.org, with search. |
 | Immich photos | A shared Immich album as the screensaver. |
 | Art mode | Public-domain paintings from the Met and the Cleveland Museum of Art as the screensaver. |
+| Google Calendar | Upcoming events from one private Google Calendar. Enable the plugin and enter the calendar's Secret address in iCal format directly in its settings. The address grants read-only access. |
+| Sports | ESPN schedules, scores and listed broadcasters for selected leagues. |
 | Weather | The temperature and sky now and each day's high for the week ahead in a town you name, as a row of small tiles to read. Celsius or Fahrenheit. From Open-Meteo, with no account or key. |
 
 Lounge has no player of its own, so a plugin that plays a stream hands it to a player app on

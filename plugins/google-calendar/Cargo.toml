@@ -1,0 +1,13 @@
+[package]
+name = "lounge-plugin-google-calendar"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+lounge-plugin-sdk.workspace = true
+chrono = { version = "0.4", default-features = false, features = ["std"] }
+rrule = "0.14"
