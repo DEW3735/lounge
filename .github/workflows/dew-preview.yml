@@ -46,9 +46,23 @@ jobs:
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.2.12479018" >> "$GITHUB_ENV"
       # Signed with a key made on the spot; only a release needs the real one.
       - name: Test Calendar and Sports plugins
-        run: cargo test --locked -p lounge-plugin-google-calendar -p lounge-plugin-dew-sports
+        run: cargo test -p lounge-plugin-google-calendar -p lounge-plugin-dew-sports
         working-directory: plugins
       - run: tools/plugins/build.sh
+      - name: Upload the Calendar and Sports plugins
+        uses: actions/upload-artifact@v7
+        with:
+          name: dew-lounge-calendar-and-sports
+          path: |
+            android/app/src/main/assets/plugins/google-calendar.lgp
+            android/app/src/main/assets/plugins/dew-sports.lgp
+          if-no-files-found: error
+      - name: Upload the plugin lockfile
+        uses: actions/upload-artifact@v7
+        with:
+          name: plugin-lockfile
+          path: plugins/Cargo.lock
+          retention-days: 1
       - run: ./gradlew :core:design:testDebugUnitTest :core:platform:testDebugUnitTest :collector:media:testDebugUnitTest :power:testDebugUnitTest :update:testDebugUnitTest :feature:home:testDebugUnitTest :app:assembleRelease
         working-directory: android
       - uses: actions/upload-artifact@v7

@@ -40,3 +40,6 @@ opt-level = 3
 
 [profile.release.package.wasmi_collections]
 opt-level = 3
+
+[patch.crates-io]
+rrule = { path = "vendor/rrule" }
