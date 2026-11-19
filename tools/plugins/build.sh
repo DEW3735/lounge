@@ -25,7 +25,7 @@ SHIPPED="iptv jellyfin emby plex youtube archive immich hdhomerun tvheadend chan
 cargo build -q --release --target wasm32-unknown-unknown $(for n in $SHIPPED sample; do printf -- '-p lounge-plugin-%s ' "$n"; done)
 mkdir -p "$OUT"
 for name in $SHIPPED; do
-  "$TOOL" bundle "target/wasm32-unknown-unknown/release/lounge_plugin_$name.wasm" "$KEY" "$OUT/$name.lgp"
+  "$TOOL" bundle "target/wasm32-unknown-unknown/release/lounge_plugin_${name//-/_}.wasm" "$KEY" "$OUT/$name.lgp"
 done
 # The sample library is not shipped in the APK; install it from the phone when you want it.
 "$TOOL" bundle target/wasm32-unknown-unknown/release/lounge_plugin_sample.wasm "$KEY" target/sample.lgp

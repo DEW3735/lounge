@@ -1,4 +1,4 @@
-use chrono::{DateTime, Duration, FixedOffset, NaiveDate, NaiveDateTime, TimeZone, Utc};
+use chrono::{DateTime, Duration, FixedOffset, NaiveDate, NaiveDateTime, Utc};
 use lounge_plugin_sdk::{
     self as sdk, HttpRequest, Item, Kind, Manifest, RefreshContext, RowSpec, RowStyle,
     SettingKind, SettingSpec, host,
